@@ -33,8 +33,8 @@ public class App implements EntryPoint {
 	/**
 	 * Create a remote service proxy to talk to the server-side Greeting service.
 	 */
-	private final GreetingServiceAsync greetingService = GWT
-			.create(GreetingService.class);
+//	private final GreetingServiceAsync greetingService = GWT
+//			.create(GreetingService.class);
 
 	/**
 	 * This is the entry point method.
@@ -45,6 +45,9 @@ public class App implements EntryPoint {
 		final TextBox nameField = new TextBox();
 		nameField.setText("GWT User");
 		nameField.setText(SimpleDto.name);
+		SimpleDto simpleDto = new SimpleDto();
+		simpleDto.setDeviceSerialNumber("sdfasfas");
+		nameField.setText(simpleDto.getDeviceSerialNumber());
 		final Label errorLabel = new Label();
 
 		// We can add style names to widgets
@@ -122,34 +125,34 @@ public class App implements EntryPoint {
 				sendButton.setEnabled(false);
 				textToServerLabel.setText(textToServer);
 				serverResponseLabel.setText("");
-				greetingService.greetServer(textToServer,
-						new AsyncCallback<GreetingResponse>() {
-							public void onFailure(Throwable caught) {
-								// Show the RPC error message to the user
-								dialogBox
-										.setText("Remote Procedure Call - Failure");
-								serverResponseLabel
-										.addStyleName("serverResponseLabelError");
-								serverResponseLabel.setHTML(SERVER_ERROR);
-								dialogBox.center();
-								closeButton.setFocus(true);
-							}
-
-							public void onSuccess(GreetingResponse result) {
-								dialogBox.setText("Remote Procedure Call");
-								serverResponseLabel
-										.removeStyleName("serverResponseLabelError");
-								serverResponseLabel.setHTML(new SafeHtmlBuilder()
-										.appendEscaped(result.getGreeting())
-										.appendHtmlConstant("<br><br>I am running ")
-										.appendEscaped(result.getServerInfo())
-										.appendHtmlConstant(".<br><br>It looks like you are using:<br>")
-										.appendEscaped(result.getUserAgent())
-										.toSafeHtml());
-								dialogBox.center();
-								closeButton.setFocus(true);
-							}
-						});
+//				greetingService.greetServer(textToServer,
+//						new AsyncCallback<GreetingResponse>() {
+//							public void onFailure(Throwable caught) {
+//								// Show the RPC error message to the user
+//								dialogBox
+//										.setText("Remote Procedure Call - Failure");
+//								serverResponseLabel
+//										.addStyleName("serverResponseLabelError");
+//								serverResponseLabel.setHTML(SERVER_ERROR);
+//								dialogBox.center();
+//								closeButton.setFocus(true);
+//							}
+//
+//							public void onSuccess(GreetingResponse result) {
+//								dialogBox.setText("Remote Procedure Call");
+//								serverResponseLabel
+//										.removeStyleName("serverResponseLabelError");
+//								serverResponseLabel.setHTML(new SafeHtmlBuilder()
+//										.appendEscaped(result.getGreeting())
+//										.appendHtmlConstant("<br><br>I am running ")
+//										.appendEscaped(result.getServerInfo())
+//										.appendHtmlConstant(".<br><br>It looks like you are using:<br>")
+//										.appendEscaped(result.getUserAgent())
+//										.toSafeHtml());
+//								dialogBox.center();
+//								closeButton.setFocus(true);
+//							}
+//						});
 			}
 		}
 

@@ -1,13 +1,14 @@
 package com.daniel.app;
 
-import com.google.gwt.user.server.rpc.RemoteServiceServlet;
+//import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 /**
  * The server side implementation of the RPC service.
  */
 @SuppressWarnings("serial")
-public class GreetingServiceImpl extends RemoteServiceServlet implements
-		GreetingService {
+public class GreetingServiceImpl {
+	//extends RemoteServiceServlet implements
+//		GreetingService {
 
 	public GreetingResponse greetServer(String input) throws IllegalArgumentException {
 		// Verify that the input is valid.
@@ -20,8 +21,8 @@ public class GreetingServiceImpl extends RemoteServiceServlet implements
 
 		GreetingResponse response = new GreetingResponse();
 
-		response.setServerInfo(getServletContext().getServerInfo());
-		response.setUserAgent(getThreadLocalRequest().getHeader("User-Agent"));
+//		response.setServerInfo(getServletContext().getServerInfo());
+//		response.setUserAgent(getThreadLocalRequest().getHeader("User-Agent"));
 
 		response.setGreeting("Hello, " + input + "!");
 

@@ -1,68 +1,121 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-  <parent>
-    <groupId>com.daniel</groupId>
-    <artifactId>app</artifactId>
-    <version>1.0-SNAPSHOT</version>
-  </parent>
+    <parent>
+        <groupId>com.daniel</groupId>
+        <artifactId>app</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
 
-  <artifactId>app-client</artifactId>
-  <packaging>gwt-app</packaging>
+    <artifactId>app-client</artifactId>
+    <packaging>gwt-app</packaging>
 
-  <properties>
-    <io.swagger.version>1.6.1</io.swagger.version>
-  </properties>
+    <properties>
+        <gwt.version>2.9.0</gwt.version>
+        <gwt-maven-plugin.version>1.0.0</gwt-maven-plugin.version>
+        <io.swagger.version>1.6.1</io.swagger.version>
+    </properties>
 
-  <dependencies>
-    <dependency>
-      <groupId>${project.groupId}</groupId>
-      <artifactId>app-shared</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>${project.groupId}</groupId>
-      <artifactId>app-shared</artifactId>
-      <version>${project.version}</version>
-      <classifier>sources</classifier>
-    </dependency>
-    <dependency>
-      <groupId>${project.groupId}</groupId>
-      <artifactId>commons-model</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>${project.groupId}</groupId>
-      <artifactId>commons-model</artifactId>
-      <version>${project.version}</version>
-      <classifier>sources</classifier>
-    </dependency>
-    <dependency>
-      <groupId>com.google.gwt</groupId>
-      <artifactId>gwt-user</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.google.gwt</groupId>
-      <artifactId>gwt-dev</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.swagger</groupId>
-      <artifactId>swagger-annotations</artifactId>
-      <version>${io.swagger.version}</version>
-    </dependency>
-  </dependencies>
+    <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>app-shared</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>app-shared</artifactId>
+            <version>${project.version}</version>
+            <classifier>sources</classifier>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>commons-model</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>commons-model</artifactId>
+            <version>${project.version}</version>
+            <classifier>sources</classifier>
+        </dependency>
+        <dependency>
+            <groupId>com.google.gwt</groupId>
+            <artifactId>gwt-user</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.google.gwt</groupId>
+            <artifactId>gwt-dev</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-annotations</artifactId>
+            <version>${io.swagger.version}</version>
+        </dependency>
+    </dependencies>
 
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>net.ltgt.gwt.maven</groupId>
-        <artifactId>gwt-maven-plugin</artifactId>
-        <configuration>
-          <moduleName>com.daniel.app.App</moduleName>
-          <moduleShortName>app</moduleShortName>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.google.gwt</groupId>
+                <artifactId>gwt</artifactId>
+                <version>${gwt.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>com.google.code.gson</groupId>-->
+<!--                <artifactId>gson</artifactId>-->
+<!--                <version>${gson.version}</version>-->
+<!--            </dependency>-->
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>net.ltgt.gwt.maven</groupId>
+                <artifactId>gwt-maven-plugin</artifactId>
+                <version>${gwt-maven-plugin.version}</version>
+                <inherited>false</inherited>
+                <extensions>true</extensions>
+                <configuration>
+                    <failOnError>true</failOnError>
+                    <sourceLevel>1.8</sourceLevel>
+                    <launcherDir>${project.build.directory}/gwt/launcherDir</launcherDir>
+                    <moduleName>com.daniel.app.App</moduleName>
+                    <moduleShortName>app</moduleShortName>
+                    <jvmArgs>
+<!--                        <arg>-->
+<!--                            -javaagent:${settings.localRepository}/org/projectlombok/lombok/${lombok.version}/lombok-${lombok.version}.jar=ECJ-->
+<!--                        </arg>-->
+                        <arg>-Xms1024m</arg>
+                        <arg>-Xmx4096m</arg>
+                    </jvmArgs>
+                    <codeserverArgs>
+                        <arg>-src</arg>
+                        <arg>${project.parent.basedir}/app-shared/src/main/java</arg>
+                    </codeserverArgs>
+                    <classpathScope>compile</classpathScope>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+
+    <!--  <build>-->
+    <!--    <plugins>-->
+    <!--      <plugin>-->
+    <!--        <groupId>net.ltgt.gwt.maven</groupId>-->
+    <!--        <artifactId>gwt-maven-plugin</artifactId>-->
+    <!--        <configuration>-->
+    <!--          <moduleName>com.daniel.app.App</moduleName>-->
+    <!--          <moduleShortName>app</moduleShortName>-->
+    <!--        </configuration>-->
+    <!--      </plugin>-->
+    <!--    </plugins>-->
+    <!--  </build>-->
 </project>

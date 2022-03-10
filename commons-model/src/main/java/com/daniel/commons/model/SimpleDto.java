@@ -21,4 +21,28 @@ public class SimpleDto {
             example = "AAA21324",
             required = true)
     protected String deviceSerialNumber;
+
+    public static String getName() {
+        return name;
+    }
+
+    public static void setName(String name) {
+        SimpleDto.name = name;
+    }
+
+    public String getDeviceType() {
+        return deviceType;
+    }
+
+    public void setDeviceType(String deviceType) {
+        this.deviceType = deviceType;
+    }
+
+    public String getDeviceSerialNumber() {
+        return deviceSerialNumber;
+    }
+
+    public void setDeviceSerialNumber(String deviceSerialNumber) {
+        this.deviceSerialNumber = deviceSerialNumber;
+    }
 }
